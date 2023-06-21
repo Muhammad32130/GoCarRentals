@@ -1,17 +1,24 @@
+import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import Questions from './components/Questions';
-import Reviews from './components/Reviews';
-import logo from './logo.svg';
+import Search from './Pages/Search';
+import Nav from './components/Nav';
 
 function App() {
   return (
-    <>
-    <div className="App ">
-      <Home/>
-      <Questions></Questions>
-      <Reviews/>
+    <div className="App">
+  
+      
+    <BrowserRouter>
+    <Routes>
+
+<Route path="/" element={<Home></Home>}></Route>
+<Route path="/search" element={<Search></Search>}>
+
+</Route>
+    </Routes>
+    </BrowserRouter>
+    
     </div>
-    </>
   );
 }
 

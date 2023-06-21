@@ -3,36 +3,20 @@ import axios from 'axios';
 import Nav from './Nav';
 import car from '../images/iris_copy.png'
 import svg from '../images/wave-haikei (3).svg'
-
+import CarLocation from './CarLocation'
+import Reviews from './Reviews';
+import Questions from './Questions';
 function Home() {
-//     const [data, setData] = useState(null)
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//               const response = await axios.get('https://api.api-ninjas.com/v1/cars?limit=10&model=A', {
-//                 headers: {
-//                   'X-API-Key': 'lw6DCLR3vHdJArevbkSgzO2QheuLrVyaXmpHsibD',
-//                 },
-//               });
-//               setData(response.data);
-//             } catch (error) {
-//               console.error(error);
-//             }
-//           };
-      
-//           fetchData();
-//       }, []);
-// console.log(data);
 
-// Do we offer military discounts ?
-// Do I need my own insurance 
-// what happens if i get in an accident?
-// What are your business fees.
+
+
+
+
+
   return (
     <div>
 
     <div className='gradient h-[80vh] -z-10'>
-        <Nav/>
 
 
     <div className='absolute w-[100%] -z-8 bottom-40 right-0'>
@@ -42,10 +26,9 @@ function Home() {
 
         
       <div className='flex items-center h-[80vh]'>
-        <div className='pl-20 font-medium '>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, odit debitis. Ea eligendi, nemo iusto harum ex accusamus pariatur at quis nisi, molestias in sapiente laudantium porro recusandae! Cumque, soluta.
+        <div className='pl-20 w-[100%] flex justify-center font-medium '>
+          <CarLocation/>
         </div>
-        <img className='w-[50%]  ' src={car} alt="" />
       </div>
     </div>
     <div className='mt-10 flex justify-center text-[#092409c5]'>
@@ -72,6 +55,8 @@ We have a great range of cars for an affordable price.
       </div>
     
     </div>
+    <Reviews></Reviews>
+    <Questions></Questions>
     </div>
   )
 }
