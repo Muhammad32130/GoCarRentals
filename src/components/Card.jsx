@@ -1,5 +1,21 @@
+import { useEffect, useState } from 'react';
 import camaro from '../images/2019-chevrolet-camaro-2-0t-1le-6mt-106-1539790974.jpg'
-function Card({data, items}) {
+import axios from 'axios';
+import { ConstructionOutlined } from '@mui/icons-material';
+function Card({data,year,model, items, handleSearch,photos}) {
+useEffect(()=>{
+if(model){
+    handleSearch(model + " car")
+}
+else if(!model){
+    handleSearch(items.make + items.model + " car")
+}
+
+
+},[model,year])
+    
+console.log(model) 
+
     const calculateRentalPrice = (items) => {
 
 
@@ -17,9 +33,9 @@ function Card({data, items}) {
       const rentalPrice = calculateRentalPrice(items)
 
   return (
-    <div className="w-[calc(100%/3)] flex flex-col items-center bg-[red] h-[calc(100%/2)]">
+    <div className="w-[calc(100%/3)] border rounded my-4 flex flex-col items-center  h-[calc(100%/2)]">
     <div className="w-[90%] mt-10 object-contain">
-    <img className='' src={camaro} alt="" />
+    <img className='' src={items.urls} alt="" />
     </div>
 <div className='w-[90%] flex justify-between'>
     <div >
@@ -28,7 +44,7 @@ function Card({data, items}) {
         {items.year} {items.make} {items.model}
     </h1>
     <h1 className='mt-4'>
-       Fuel Type: {items.fuel_type.toUpperCase()}
+       Fuel Type: {items.fuel_type?.toUpperCase()}
     </h1>
     
     </div>

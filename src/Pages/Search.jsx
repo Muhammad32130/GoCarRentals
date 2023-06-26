@@ -5,71 +5,101 @@ import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Slider, Switch, TextField } from '@mui/material';
 
 function Search() {
-const [year, setyear] = useState(2023)
-  const [data, setData] = useState(null)
-    const [mpgRange, setMPGRange] = React.useState([0, 50]);
+const [photos, setphotos] = useState([])
+const [model, setmodel] = useState(null)
+  async function handleSearch(make) {
+      console.log(make)
+    try {
+      const response = await axios.get(
+        `https://api.unsplash.com/search/photos?page=1&query=${make}&client_id=FOxyzvHq-yTfbY8PJDyLr0qkXROl-DLRU97V754r7mM`
+      );
 
-    const handleChange = (event, newValue) => {
-      setMPGRange(newValue);
-    };
-    if(data){
+     
+setphotos(response.data.results)
 
-      const price = data[0].combination_mpg *20
-      console.log(price)
+
+      ;
+    } catch (error) {
+      console.error(error);
     }
-
-    const options = [
-        { value: "", label: "Select a car maker" },
-        { value: "chevrolet", label: "Chevrolet" },
-        { value: "ford", label: "Ford" },
-        { value: "dodge", label: "Dodge" },
-        { value: "tesla", label: "Tesla" },
-        { value: "jeep", label: "Jeep" },
-        { value: "cadillac", label: "Cadillac" },
-        { value: "gmc", label: "GMC" },
-        { value: "buick", label: "Buick" },
-        { value: "chrysler", label: "Chrysler" },
-        { value: "lincoln", label: "Lincoln" }
-      ];
+  };
+  
+  
+  
+  const [year, setyear] = useState(2023)
+  const [data, setData] = useState(null)
+  const [mpgRange, setMPGRange] = React.useState([0, 50]);
+  
+  const handleChange = (event, newValue) => {
+    setMPGRange(newValue);
+  };
+  if(data){
     
-      
+    const price = data[0]?.combination_mpg *20
+  }
+  
+  const options = [
+      { value: "chevrolet", label: "Chevrolet" },
+      { value: "ford", label: "Ford" },
+      { value: "tesla", label: "Tesla" },
+      { value: "jeep", label: "Jeep" },
+      { value: "cadillac", label: "Cadillac" },
+      { value: "gmc", label: "GMC" },
+      { value: "toyota", label: "Toyota" },
+      { value: "Honda", label: "Honda" }
+    ];
+    
 
-
-
+    
+    
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-              const response = await axios.get(`https://api.api-ninjas.com/v1/cars?limit=10&model=A&year=${year}`, {
-                headers: {
-                  'X-API-Key': 'lw6DCLR3vHdJArevbkSgzO2QheuLrVyaXmpHsibD',
-                },
-              });
-              setData(response.data);
-            } catch (error) {
-              console.error(error);
-            }
-          };
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`https://api.api-ninjas.com/v1/cars?limit=10&make=${model ? model : "A"}&year=${year}`, {
+            headers: {
+              'X-API-Key': 'lw6DCLR3vHdJArevbkSgzO2QheuLrVyaXmpHsibD',
+            },
+          });
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
       
-          fetchData();
-      }, [year]);
-console.log(year);
-  return (
- <div className=' h-[100vh] bg-[#070404]'>
-  <Nav></Nav>
-    <div className='flex bg-[red] justify-around items-center'>
-        <div>
+      fetchData();
+    }, [model,year]);
+
+    
+    const urls  = photos.map(photos => photos.urls.full)
+    
+    if (urls?.length === data?.length) {
+      // Loop through the arrays
+      for (let i = 0; i < urls.length; i++) {
+        // Assign the link to the corresponding object
+        data[i].urls = urls[i];
+      }
+
+    }
+    
+
+    return (
+      <div>
+  <div className='h-20 bg-[#141414]'></div>
+    <div className='flex border flex-col fixed h-[100%]  justify-evenly items-center'>
+        <div className='mx-6'>
 
         Filter:
         <Autocomplete
+        onChange={(e) =>{setmodel(e.target.outerText)}}
       disablePortal
       id="combo-box-demo"
       options={options}
-      sx={{ width: 200 }}
+      sx={{ width: 180 }}
       renderInput={(params) => <TextField {...params} label="Select a Make" />}
       />
       </div>
-
-    <div className='w-[15%] '> 
+<hr className='w-[90%]' />
+    <div className='w-[80%] '> 
     Year
     <Slider
   size="x-small"
@@ -86,7 +116,8 @@ console.log(year);
 
 
   </div>
-<div className='w-[20%]'>
+  <hr className='w-[90%]' />
+<div className='w-[80%]'>
 MPG Range:
 <Slider
       value={mpgRange}
@@ -98,18 +129,19 @@ MPG Range:
       aria-labelledby="mpg-range-slider"
       />
       </div>
+      <hr className='w-[90%]' />
 <FormGroup > 
     Transmission
   <FormControlLabel control={<Switch defaultChecked />} label="Manual" />
   <FormControlLabel  control={<Switch />} label="Automatic" />
 </FormGroup>
     </div>
-    <div className='flex flex-wrap '>
+    <div className='flex items-center flex-col '>
 
 {data && data.map((items)=>{
   return(
     
-    <Card data={data} items={items}></Card>
+    <Card year={year} model={model} photos={photos} handleSearch={handleSearch} data={data} items={items}></Card>
     )
   })
 }
