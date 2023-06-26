@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import camaro from '../images/2019-chevrolet-camaro-2-0t-1le-6mt-106-1539790974.jpg'
-import axios from 'axios';
-import { ConstructionOutlined } from '@mui/icons-material';
+import { useEffect, } from 'react';
+
 function Card({data,year,model, items, handleSearch,photos}) {
 useEffect(()=>{
+    
 if(model){
     handleSearch(model + " car")
 }
@@ -14,7 +13,6 @@ else if(!model){
 
 },[model,year])
     
-console.log(model) 
 
     const calculateRentalPrice = (items) => {
 
