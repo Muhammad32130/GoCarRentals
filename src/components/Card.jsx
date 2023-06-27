@@ -1,13 +1,17 @@
+import { Skeleton } from '@mui/material';
 import { useEffect, } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-function Card({data,year,model, items, handleSearch,photos}) {
+function Card({data,year,model, items, handleSearch}) {
+
+    
 useEffect(()=>{
     
 if(model){
     handleSearch(model + " car")
 }
 else if(!model){
-    handleSearch(items.make + items.model + " car")
+    handleSearch(items.make + " " + items.model + " car")
 }
 
 
@@ -33,7 +37,10 @@ else if(!model){
   return (
     <div className="w-[calc(100%/3)] border rounded my-4 flex flex-col items-center  h-[calc(100%/2)]">
     <div className="w-[90%] mt-10 object-contain">
-    <img className='' src={items.urls} alt="" />
+        {items.urls ?
+            <img className='' src={items.urls} alt="" />
+: <Skeleton width={550} height={300} variant='rectangular'></Skeleton>
+        }
     </div>
 <div className='w-[90%] flex justify-between'>
     <div >
@@ -46,10 +53,15 @@ else if(!model){
     </h1>
     
     </div>
-    <div className='mt-4'>
+    <div className='mt-4 text-center'>
         <h1>
         Rental Price: ${rentalPrice}
         </h1>
+        <Link to={`/car/${items.id}`}>
+        <button className='bg-[#D87F5A] my-2 py-2 px-4 hover:bg-[green] transition-all text-[white] rounded text-center'>
+            View Deal 
+        </button>
+        </Link>
     </div>
 </div>
         

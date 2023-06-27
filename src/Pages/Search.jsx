@@ -4,22 +4,26 @@ import axios from 'axios';
 import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Slider, Switch, TextField } from '@mui/material';
 
-function Search() {
+function Search({data, setData}) {
 const [photos, setphotos] = useState([])
 const [model, setmodel] = useState(null)
-  async function handleSearch(make) {
-      console.log(make)
+
+
+async function handleSearch(make) {
+  
     try {
+      
       const response = await axios.get(
         `https://api.unsplash.com/search/photos?page=1&query=${make}&client_id=FOxyzvHq-yTfbY8PJDyLr0qkXROl-DLRU97V754r7mM`
-      );
-
-     
-setphotos(response.data.results)
-
-
-      ;
-    } catch (error) {
+        );
+        
+            
+            setphotos(response.data.results)
+          
+          
+          ;
+        }
+     catch (error) {
       console.error(error);
     }
   };
@@ -27,7 +31,6 @@ setphotos(response.data.results)
   
   
   const [year, setyear] = useState(2023)
-  const [data, setData] = useState(null)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
   
   const handleChange = (event, newValue) => {
@@ -69,7 +72,7 @@ setphotos(response.data.results)
       fetchData();
     }, [model,year]);
 
-    
+    console.log(data)
     const urls  = photos.map(photos => photos.urls.full)
     
     if (urls?.length === data?.length) {
@@ -77,6 +80,7 @@ setphotos(response.data.results)
       for (let i = 0; i < urls.length; i++) {
         // Assign the link to the corresponding object
         data[i].urls = urls[i];
+        data[i].id = i
       }
 
     }
