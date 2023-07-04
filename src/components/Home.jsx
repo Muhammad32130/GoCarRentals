@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import Nav from './Nav';
-import car from '../images/iris_copy.png'
 import svg from '../images/wave-haikei (3).svg'
 import CarLocation from './CarLocation'
 import Reviews from './Reviews';

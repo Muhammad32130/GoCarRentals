@@ -8,10 +8,10 @@ function Card({data,year,model, items, handleSearch}) {
 useEffect(()=>{
     
 if(model){
-    handleSearch(model + " car")
+    handleSearch([model + " car"])
 }
 else if(!model){
-    handleSearch(items.make + " " + items.model + " car")
+    handleSearch([items.make + " " + items.model + " car"])
 }
 
 

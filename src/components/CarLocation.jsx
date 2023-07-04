@@ -12,14 +12,10 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 function CarLocation() {
   return (
     <div className='text-[#00000099]' >
-
-      
             <div className='bg-[rgb(216,202,202)] flex flex-col items-center justify-center p-6 rounded-sm'>
-
         <div className='flex items-center '>
         <label className='pr-4' htmlFor="">Pickup Location:</label>
         <select className='mr-4 py-2 px-2 bg-transparent  border-[#e5e7eb]' id="citySelect">
-          
   <option value="" disabled selected>Select a location</option>
   <option value="Houston">Houston</option>
   <option value="Sugar Land">Sugar Land</option>
@@ -33,14 +29,12 @@ function CarLocation() {
   <option value="Galveston">Galveston</option>
 </select>
         <label className='pr-4' htmlFor="">Date:</label>
-
         <LocalizationProvider dateAdapter={AdapterDayjs}  >
       <DemoContainer components={['DatePicker', 'DatePicker']}  >
         <DatePicker label="Pickup Date" defaultValue={dayjs()}  minDate={dayjs()} />
         <DatePicker 
         minDate={dayjs()}
         label="Drop-off Date"
-        
         />
       </DemoContainer>
     </LocalizationProvider>
@@ -58,13 +52,10 @@ function CarLocation() {
           />
       </DemoContainer>
     </LocalizationProvider>
-
         </div>
   <a href="/search">
-
         <button type='submit' className='mt-4 bg-[red] px-4 py-1 rounded-sm' >Submit</button>
   </a>
-
           </div>
     </div>
   )

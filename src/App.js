@@ -12,7 +12,6 @@ function App() {
     <Nav></Nav>
     <BrowserRouter>
     <Routes>
-
 <Route path="/" element={<Home></Home>}></Route>
 <Route path="/search" element={<Search data={data} setData={setData}></Search>}></Route>
 <Route path="/car/:id" element={<Car data={data}></Car>}></Route>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav'
 import axios from 'axios';
 import Card from '../components/Card'
-import { Autocomplete, FormControlLabel, FormGroup, Slider, Switch, TextField } from '@mui/material';
+import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, TextField } from '@mui/material';
 
 function Search({data, setData}) {
 const [photos, setphotos] = useState([])
@@ -10,7 +10,6 @@ const [model, setmodel] = useState(null)
 
 
 async function handleSearch(make) {
-  
     try {
       
       const response = await axios.get(
@@ -42,6 +41,7 @@ async function handleSearch(make) {
   }
   
   const options = [
+      { value: "BMW", label: "BMW" },
       { value: "chevrolet", label: "Chevrolet" },
       { value: "ford", label: "Ford" },
       { value: "tesla", label: "Tesla" },
@@ -49,9 +49,15 @@ async function handleSearch(make) {
       { value: "cadillac", label: "Cadillac" },
       { value: "gmc", label: "GMC" },
       { value: "toyota", label: "Toyota" },
-      { value: "Honda", label: "Honda" }
+      { value: "Honda", label: "Honda" },
+      { value: "Mercedes", label: "Mercedes" }
     ];
-    
+    function modelsetter(e){
+for( let i=0; i<data.length; i++){
+ data[i].urls = undefined;
+}
+setmodel(e)
+    }
 
     
     
@@ -71,8 +77,7 @@ async function handleSearch(make) {
       
       fetchData();
     }, [model,year]);
-
-    console.log(data)
+   
     const urls  = photos.map(photos => photos.urls.full)
     
     if (urls?.length === data?.length) {
@@ -80,11 +85,11 @@ async function handleSearch(make) {
       for (let i = 0; i < urls.length; i++) {
         // Assign the link to the corresponding object
         data[i].urls = urls[i];
-        data[i].id = i
+        data[i].id = i;
       }
-
     }
-    
+  
+    console.log(data)
 
     return (
       <div>
@@ -94,7 +99,7 @@ async function handleSearch(make) {
 
         Filter:
         <Autocomplete
-        onChange={(e) =>{setmodel(e.target.outerText)}}
+        onChange={(e) =>{modelsetter(e.target.outerText)}}
       disablePortal
       id="combo-box-demo"
       options={options}
@@ -143,10 +148,11 @@ MPG Range:
     <div className='flex items-center flex-col '>
 
 {data && data.map((items)=>{
+
   return(
-    
     <Card year={year} model={model} photos={photos} handleSearch={handleSearch} data={data} items={items}></Card>
     )
+
   })
 }
   </div>

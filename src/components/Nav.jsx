@@ -7,10 +7,7 @@ function Nav() {
 
   useEffect(()=>{
       const bg = document.querySelectorAll(' .bg_change')
-
       window.onscroll = function(){
-        
-        
         if(bg[0].className.includes('onscrollbg')=== false && window.scrollY >=  600){
           bg[0].classList += ' onscrollbg '
   }
@@ -25,9 +22,6 @@ function Nav() {
 
 
   return (
-
-
-
     <div className='h-20 border-b bg_change z-20 border-[silver] fixed'>
             <nav className='flex justify-between text-white'>
               <div className='flex ml-6 invert items-center'>
@@ -37,7 +31,7 @@ function Nav() {
               </div>
               </div>
                 <ul className='flex mr-10 items-center'>
-                    <a href='' className='mx-5' >Home</a >
+                    <a href='/' className='mx-5' >Home</a >
                     <a href='' className='mx-5' >About</a >
                     <a href='' className='mx-5' >Contacts </a >
                 </ul>
