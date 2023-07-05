@@ -25,13 +25,13 @@ function Reviews() {
 
   return (
     <div className='flex flex-col'>
-        <h1 className=' mt-20 ml-40 text-[40px] font-bold'>
+        <h1 className=' mt-20 sm:mt-40 sm:ml-10 ml-40 text-[40px] font-bold'>
         Reviews
         </h1>
-        <div className='text-center mt-20'>
+        <div className='text-center sm:flex sm:flex-col sm:justify-center mt-20'>
         <Carousel navButtonsAlwaysInvisible >
         {items.map((item, index) => (
-        <Paper className='text-start ml-60 mb-2 w-[50%]' key={index}>
+        <Paper className='text-start ml-60 sm:ml-10 mb-2 w-[50%]' key={index}>
           <h2 className='text-[24px] px-4'>{item.name}</h2>
           <h2 className='text-[22px] px-4 mb-4 font-semibold'>{item.title}</h2>
           <p className='px-4'>{item.description}</p>

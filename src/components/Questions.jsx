@@ -40,7 +40,7 @@ function Questions() {
         </h1>
         <div  className='flex justify-center mt-10'>
 
-        <div className='w-[40%]'>
+        <div className='w-[40%] sm:w-[90%]'>
        <Accord question={'Do you offer military discounts?'} Answer={'Yes We offer military 10% off for Military veterans.'}></Accord>
        <hr />
        <Accord question={'What happens if I get in an accident ?'} Answer={'Imediately contact our roadside assistance team which is available 24/7.'}></Accord>
@@ -53,14 +53,14 @@ function Questions() {
 
         </div>
         
-<div className='absolute right-60 bottom-0'>
+<div className='sm:hidden absolute xl:right-6 2xl:right-20 4xl:right-60 bottom-0'>
   <div className='flex'>
 
   <div className=' move w-20 mt-14 h-6'></div>
   <div className=' move w-6 h-20'></div>
   </div>
 </div>
-<div className='absolute left-60 top-0'>
+<div className='absolute sm:hidden xl:left-4 xl:top-[-4%] 2xl:left-20 4xl:left-60 top-0'>
   <div className='flex'>
 
   <div className=' move w-6 h-20'></div>

@@ -94,7 +94,7 @@ setmodel(e)
     return (
       <div>
   <div className='h-20 bg-[#141414]'></div>
-    <div className='flex border flex-col fixed h-[100%]  justify-evenly items-center'>
+    <div className='sm:w-[20px]  flex border flex-col fixed h-[100%]  justify-evenly items-center'>
         <div className='mx-6'>
 
         Filter:
