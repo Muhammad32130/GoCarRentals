@@ -25,7 +25,7 @@ function Reviews() {
 
   return (
     <div className='flex flex-col'>
-        <h1 className=' mt-20 sm:mt-40 sm:ml-10 ml-40 text-[40px] font-bold'>
+        <h1 className=' mt-20 sm:mt-40 lg:mt-60 sm:ml-10 ml-40 text-[40px] font-bold'>
         Reviews
         </h1>
         <div className='text-center sm:flex sm:flex-col sm:justify-center mt-20'>

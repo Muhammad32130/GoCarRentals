@@ -35,7 +35,7 @@ else if(!model){
       const rentalPrice = calculateRentalPrice(items)
 
   return (
-    <div className="w-[calc(100%/3)] border rounded my-4 flex flex-col items-center  h-[calc(100%/2)]">
+    <div className="4xl:w-[calc(100%/3)] sm:w-[85%] xl:w-[60%] 2xl:w-[40%] 3xl:w-[30%] border rounded my-4 flex flex-col items-center  h-[calc(100%/2)]">
     <div className="w-[90%] mt-10 object-contain">
         {items.urls ?
             <img className='' src={items.urls} alt="" />

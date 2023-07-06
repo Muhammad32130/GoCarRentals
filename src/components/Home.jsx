@@ -13,10 +13,10 @@ function Home() {
   return (
     <div>
 
-  <div className='gradient h-[80vh] sm:h-[60vh] lg:h-[68vh] -z-10'>
+  <div className='gradient lg:h-[70vh] sm:h-[60vh] 2xl:h-[80vh] -z-10'>
 
 
-    <div className='absolute w-[100%] sm:bottom-[39%] 4xl:bottom-40 xl:bottom-56 lg:top-[65%] -z-8 2xl:bottom-56 right-0'>
+    <div className='absolute w-[100%] sm:bottom-[39%] lg:bottom-[30%] 2xl:bottom-[19%] -z-8 right-0'>
       <img className='w-[100%]' src={svg} alt="" />
     </div>
 
