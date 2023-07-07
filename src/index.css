@@ -9,6 +9,7 @@
 @layer components{
 body{
   font-family: 'Oswald', sans-serif;
+  overflow-x: hidden !important;
 
 }
   .gradient{

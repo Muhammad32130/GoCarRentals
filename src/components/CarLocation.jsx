@@ -11,7 +11,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 function CarLocation() {
   return (
-    <div className='text-[#00000099]  max-[1024px]:w-[90%]' >
+    <div className='text-[#00000099] sm:mt-28 max-[1024px]:w-[90%]' >
             <div className='bg-[rgb(216,202,202)] flex flex-col items-center justify-center p-6  rounded-sm'>
         <div className='flex lg:flex-col sm:flex-col 2xl:flex-row items-center justify-center max-[1024px]:w-[100%]'>
         <label className='pr-4 ' htmlFor="">Pickup Location:</label>
@@ -31,8 +31,8 @@ function CarLocation() {
         <label className='pr-4' htmlFor="">Date:</label>
         <LocalizationProvider  dateAdapter={AdapterDayjs}  >
       <DemoContainer components={['DatePicker', 'DatePicker']}  >
-<div className='2xl:flex text-center'>
-        <DatePicker  label="Pickup Date" defaultValue={dayjs()}  minDate={dayjs()} />
+<div className='2xl:flex sm:flex text-center '>
+        <DatePicker className='h-10' label="Pickup Date" defaultValue={dayjs()}  minDate={dayjs()} />
         <DatePicker 
         minDate={dayjs()}
         label="Drop-off Date"
@@ -42,7 +42,7 @@ function CarLocation() {
     </LocalizationProvider>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['TimePicker', 'TimePicker']}>
-        <div className='2xl:flex text-center'>
+        <div className='2xl:flex sm:flex text-center '>
         <TimePicker
           label="Pickup Time"
           defaultValue={dayjs()}
