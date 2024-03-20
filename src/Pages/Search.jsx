@@ -4,29 +4,12 @@ import axios from 'axios';
 import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, TextField } from '@mui/material';
 
-function Search({data, setData}) {
+function Search({cars, setData}) {
 const [photos, setphotos] = useState([])
 const [model, setmodel] = useState(null)
 const [filter, setfilter] = useState(false)
 
-async function handleSearch(make) {
-    try {
-      
-      const response = await axios.get(
-        `https://api.unsplash.com/search/photos?page=1&query=${make}&client_id=FOxyzvHq-yTfbY8PJDyLr0qkXROl-DLRU97V754r7mM`
-        );
-        
-            
-            setphotos(response.data.results)
-          
-          
-          ;
-        }
-     catch (error) {
-      console.error(error);
-    }
-  };
-  
+
   
   
   const [year, setyear] = useState(2023)
@@ -35,9 +18,9 @@ async function handleSearch(make) {
   const handleChange = (event, newValue) => {
     setMPGRange(newValue);
   };
-  if(data){
+  if(cars){
     
-    const price = data[0]?.combination_mpg *20
+    const price = cars[0]?.combination_mpg *20
   }
   
   const options = [
@@ -52,44 +35,7 @@ async function handleSearch(make) {
       { value: "Honda", label: "Honda" },
       { value: "Mercedes", label: "Mercedes" }
     ];
-    function modelsetter(e){
-for( let i=0; i<data.length; i++){
- data[i].urls = undefined;
-}
-setmodel(e)
-    }
-
-    
-    
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`https://api.api-ninjas.com/v1/cars?limit=10&make=${model ? model : "A"}&year=${year}`, {
-            headers: {
-              'X-API-Key': 'lw6DCLR3vHdJArevbkSgzO2QheuLrVyaXmpHsibD',
-            },
-          });
-          setData(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      
-      fetchData();
-    }, [model,year]);
    
-    const urls  = photos.map(photos => photos.urls.full)
-    
-    if (urls?.length === data?.length) {
-      // Loop through the arrays
-      for (let i = 0; i < urls.length; i++) {
-        // Assign the link to the corresponding object
-        data[i].urls = urls[i];
-        data[i].id = i;
-      }
-    }
-  
-    console.log(data)
 
     return (
       <div>
@@ -107,7 +53,7 @@ setmodel(e)
 
         Filter:
         <Autocomplete
-        onChange={(e) =>{modelsetter(e.target.outerText)}}
+        
       disablePortal
       id="combo-box-demo"
       options={options}
@@ -155,10 +101,10 @@ MPG Range:
     </div>
     <div className='flex items-center flex-col '>
 
-{data && data.map((items)=>{
+{cars && cars[1].data.map((items)=>{
 
   return(
-    <Card year={year} model={model} photos={photos} handleSearch={handleSearch} data={data} items={items}></Card>
+    <Card year={year} model={model} photos={photos}  cars={cars} items={items}></Card>
     )
 
   })

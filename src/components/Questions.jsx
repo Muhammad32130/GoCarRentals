@@ -13,7 +13,6 @@ function Questions() {
       const x = Math.round((event.clientX / window.innerWidth) * 255);
       const y = Math.round((event.clientY / window.innerHeight) * 255);
       const o = x/270
-      console.log(x, y)
       const color = `rgb(${20}, ${20}, 20,${o})`;
       for(let i = 0; i < div.length; i++) {
         div[i].style.backgroundColor = color;
