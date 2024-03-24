@@ -3,8 +3,7 @@ import { useEffect, } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 function Card({data,year,model, items}) {
-
-    
+ 
 useEffect(()=>{
     
 // if(model){
@@ -54,7 +53,7 @@ useEffect(()=>{
         <h1>
         Rental Price: ${Math.floor(parseFloat(items.price.replace(/[$,]/g, "")) / 365)+".99"}
         </h1>
-        <Link to={`/car/${items.id}`}>
+        <Link to={`/car/${items._id}`}>
         <button className='bg-[#D87F5A] my-2 py-2 px-4 hover:bg-[green] transition-all text-[white] rounded text-center'>
             View Deal 
         </button>

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Nav from '../components/Nav'
-import axios from 'axios';
 import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, TextField } from '@mui/material';
 
@@ -18,10 +16,7 @@ const [filter, setfilter] = useState(false)
   const handleChange = (event, newValue) => {
     setMPGRange(newValue);
   };
-  if(cars){
-    
-    const price = cars[0]?.combination_mpg *20
-  }
+
   
   const options = [
       { value: "BMW", label: "BMW" },
@@ -101,7 +96,7 @@ MPG Range:
     </div>
     <div className='flex items-center flex-col '>
 
-{cars && cars[1].data.map((items)=>{
+{cars && cars.map((items)=>{
 
   return(
     <Card year={year} model={model} photos={photos}  cars={cars} items={items}></Card>

@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import svg from '../images/wave-haikei_2.svg'
+import { useLocation, useParams } from 'react-router-dom';
+import { ContactMailSharp } from '@mui/icons-material';
 function Car({data}) {
     const [currentCar, setcar] = useState(null)
     const [info, setinfo] = useState(false)
-const { id } = useParams()
-if(data){
-    const car = data.find(car => car.id == id)
-    const obj = JSON.stringify({car})
-    localStorage.setItem('obj', obj)
-}
-useEffect(()=>{
-    const {car} = JSON.parse(localStorage.getItem('obj'))
+    const {_id} = useParams()
 
-    setcar(
-        car
-        )
+
+    useEffect(()=>{
+        fetch(`https://carapi-production-506e.up.railway.app/carsid/${_id}`)
+        .then((res)=>{
+            return(res.json())
+        }).then(parsedData => {
+            setcar(parsedData); 
+            console.log(parsedData); 
+        })
     },[])
+
+console.log(currentCar)
 
 
 const calculateRentalPrice = (currentCar) => {
-
-
-    // Define your price calculation algorithm here
-    // Adjust the formula based on your specific pricing criteria
     const basePrice = 50; // Adjust this value as needed
     let priceMultiplier = 1.5; // Adjust this value as needed
-    if(currentCar?.combination_mpg < 15){
+    const mpg = currentCar?.mpg.slice(0, 2)
+    if(mpg < 15){
         priceMultiplier = 8
     }
-    const rentalPrice = basePrice + (priceMultiplier * currentCar?.combination_mpg);
+    const rentalPrice = basePrice + (priceMultiplier * mpg);
 
     return rentalPrice.toFixed(2); // Round to 2 decimal places
   };
   const rentalPrice = calculateRentalPrice(currentCar)
+  console.log(rentalPrice)
 const tax = (10/100*rentalPrice).toFixed(2)
 const service = (8 / 100*rentalPrice).toFixed(2)
 const total = (parseFloat(tax) + parseFloat(service) + parseFloat(rentalPrice)).toFixed(2)
@@ -49,18 +49,18 @@ const total = (parseFloat(tax) + parseFloat(service) + parseFloat(rentalPrice)).
             <div className='flex justify-center w-[100%] '>
 
             
-            <img className='w-[40%] rounded max-h-[600px] object-cover'  src={currentCar?.urls} alt="" />
+            <img className='w-[40%] rounded max-h-[600px] object-cover'  src={currentCar?.imageUrl} alt="" />
             <div className='w-[50%] flex items-center border ml-6 pl-6 '>
                 <div className='w-[50%] flex flex-col justify-around h-[100%]'>
                 <h1 className='text-[22px] capitalize' >
-{currentCar?.year + " " + (currentCar?.make)?.toUpperCase() + " " + currentCar?.model}
+{currentCar?.name}
 </h1>
 <h1 className='text-[20px] '>
     Drive: {(currentCar?.drive)?.toUpperCase()}
 
 </h1>
 <h1 className='text-[20px] '>
-City MPG: {currentCar?.city_mpg}
+MPG: {currentCar?.mpg}
 </h1>
 <h1 className='text-[20px] '>
     Transmission Type: {currentCar?.transmission == 'a'? "Automatic" : "Manual"}
