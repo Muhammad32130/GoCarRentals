@@ -4,8 +4,6 @@ import Accord from './Accord'
 
 
 function Questions() {
-
-
   
   function changeBgColor() {
     const div = document.querySelectorAll('.move')
@@ -22,12 +20,7 @@ function Questions() {
   
   useEffect(()=>{
   changeBgColor();
-
- 
 },[])
-
-
-
 
   return (
 

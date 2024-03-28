@@ -25,12 +25,18 @@ body{
 
   }
 
+  .hcalc{
+    height: calc(100vh - 5rem);
+  }
+  .bg_change {
+    transition: background-color 0.5s ease; 
+  }
   .onscrollbg{
     z-index: 100;
     background: #141414 !important;
     transition: all 500ms ease-in-out;
   }
-  .hcalc{
-    height: calc(100vh - 5rem);
-  }
+  
+ 
+  
 }

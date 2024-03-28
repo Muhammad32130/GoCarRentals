@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import svg from '../images/wave-haikei_2.svg'
-import { useLocation, useParams } from 'react-router-dom';
-import { ContactMailSharp } from '@mui/icons-material';
+import { useParams } from 'react-router-dom';
+
 function Car({data}) {
     const [currentCar, setcar] = useState(null)
     const [info, setinfo] = useState(false)
     const {_id} = useParams()
-
 
     useEffect(()=>{
         fetch(`https://carapi-production-506e.up.railway.app/carsid/${_id}`)
@@ -14,23 +13,21 @@ function Car({data}) {
             return(res.json())
         }).then(parsedData => {
             setcar(parsedData); 
-            console.log(parsedData); 
         })
     },[])
 
-console.log(currentCar)
 
 
 const calculateRentalPrice = (currentCar) => {
-    const basePrice = 50; // Adjust this value as needed
-    let priceMultiplier = 1.5; // Adjust this value as needed
+    const basePrice = 50; 
+    let priceMultiplier = 1.5; 
     const mpg = currentCar?.mpg.slice(0, 2)
     if(mpg < 15){
         priceMultiplier = 8
     }
     const rentalPrice = basePrice + (priceMultiplier * mpg);
 
-    return rentalPrice.toFixed(2); // Round to 2 decimal places
+    return rentalPrice.toFixed(2); 
   };
   const rentalPrice = calculateRentalPrice(currentCar)
   console.log(rentalPrice)

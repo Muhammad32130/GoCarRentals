@@ -1,22 +1,8 @@
 import { Skeleton } from '@mui/material';
-import { useEffect, } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Card({data,year,model, items}) {
+function Card({items}) {
  
-useEffect(()=>{
-    
-// if(model){
-//     handleSearch([model + " car"])
-// }
-// else if(!model){
-//     handleSearch([items.make + " " + items.model + " car"])
-// }
-
-
-},[model,year])
-    
-
     const calculateRentalPrice = (items) => {
 
         const basePrice = 50;
@@ -31,10 +17,10 @@ useEffect(()=>{
       const rentalPrice = calculateRentalPrice(items)
 
   return (
-    <div className="4xl:w-[calc(100%/3)] sm:w-[85%] xl:w-[60%] 2xl:w-[40%] 3xl:w-[30%] border rounded my-4 flex flex-col items-center  h-[calc(100%/2)]">
+    <div className="w-[calc(100%/3)] mx-4  max-h-[464px] sm:w-[85%] xl:w-[60%] 2xl:w-[40%] 3xl:w-[30%] border rounded my-4 flex flex-col items-center ">
     <div className="w-[90%] mt-10 object-contain">
         {items.imageUrl ?
-            <img className='' src={items.imageUrl} alt="" />
+            <img className='h-[326px] object-cover	' src={items.imageUrl} alt="" />
 : <Skeleton width={550} height={300} variant='rectangular'></Skeleton>
         }
     </div>
