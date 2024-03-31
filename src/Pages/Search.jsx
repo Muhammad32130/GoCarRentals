@@ -7,9 +7,11 @@ function Search() {
   const [filter, setfilter] = useState(false)
   const [year, setyear] = useState(2023)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
+  const [showmore, setshow] = useState(false)
+  const [type, settype] = useState(null)
   
   useEffect(() => {
-    fetch('https://carapi-production-506e.up.railway.app/cars')
+    fetch(`https://carapi-production-506e.up.railway.app/cars${type !== null ? `${type}` : ''}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
@@ -17,13 +19,17 @@ function Search() {
             return response.json(); 
         })
         .then(parsedData => {
+          if(parsedData.length > 9){
+            setshow(true)
+          }else{
+            setshow(false)
+          }
             setData(parsedData.slice(0, 9)); 
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-}, []);
-  
+}, [type]);
   
   
   
@@ -43,6 +49,16 @@ function Search() {
       { value: "toyota", label: "Toyota" },
       { value: "Honda", label: "Honda" },
       { value: "Mercedes", label: "Mercedes" }
+    ];
+
+    const types =  [
+      { value: "/truck", label: "Trucks" },
+      { value: "/economy", label: "Economy" },
+      { value: "/luxury", label: "Luxury" },
+      { value: "/sports", label: "Sports" },
+      { value: "/minivan", label: "Minivan" },
+      { value: "/van", label: "Vans" },
+      { value: "/electric", label: "Electric" }
     ];
    
 
@@ -65,7 +81,7 @@ function Search() {
       <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
       </div>
         <div className='mx-6 sm:mt-20'>
-        Filter:
+          Make:
         <Autocomplete
       disablePortal
       id="combo-box-demo"
@@ -74,7 +90,18 @@ function Search() {
       renderInput={(params) => <TextField {...params} label="Select a Make" />}
       />
       </div>
-<hr className='w-[90%]' />
+      <div>
+
+      Type:
+      <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={types}
+      onChange={(event, newValue) => settype(newValue?.value)}
+      sx={{ width: 180 }}
+      renderInput={(params) => <TextField {...params} label="Type of Car" />}
+      />
+      </div>
     <div className='w-[80%] '> 
     Year
     <Slider
@@ -125,6 +152,12 @@ MPG Range:
   })
 }
   </div>
+ {showmore && 
+ <div className='w-[100%] flex justify-center'>
+
+<button className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>Show More</button>
+  </div>
+  }
  </div>
   )
 }
