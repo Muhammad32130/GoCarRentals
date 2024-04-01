@@ -7,7 +7,7 @@ function Search() {
   const [filter, setfilter] = useState(false)
   const [year, setyear] = useState(2023)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
-  const [showmore, setshow] = useState(false)
+  const [showmore, setshow] = useState(9)
   const [type, settype] = useState(null)
   
   useEffect(() => {
@@ -19,23 +19,16 @@ function Search() {
             return response.json(); 
         })
         .then(parsedData => {
-          if(parsedData.length > 9){
-            setshow(true)
-          }else{
-            setshow(false)
-          }
-            setData(parsedData.slice(0, 9)); 
+            setData(parsedData); 
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-}, [type]);
-  
-  
-  
-  const handleChange = (event, newValue) => {
-    setMPGRange(newValue);
-  };
+}, [type])
+
+
+
+  console.log( showmore)
 
   
   const options = [
@@ -124,7 +117,6 @@ function Search() {
 MPG Range:
 <Slider
       value={mpgRange}
-      onChange={handleChange}
       min={0}
       max={50}
       step={1}
@@ -143,7 +135,7 @@ MPG Range:
 
     </div>
     <div className='flex justify-center pt-[100px] items-center flex-wrap mx-4 max'>
-{cars && cars.map((items)=>{
+{cars && cars.slice(0,showmore).map((items)=>{
 
   return(
     <Card year={year} items={items}></Card>
@@ -152,10 +144,10 @@ MPG Range:
   })
 }
   </div>
- {showmore && 
+ {cars?.length > showmore && 
  <div className='w-[100%] flex justify-center'>
 
-<button className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>Show More</button>
+<button onClick={()=>setshow(showmore + 3)} className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>Show More</button>
   </div>
   }
  </div>
