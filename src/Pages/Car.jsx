@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import svg from '../images/wave-haikei_2.svg'
 import { useParams } from 'react-router-dom';
+import { Skeleton } from '@mui/material';
 
 function Car({data}) {
     const [currentCar, setcar] = useState(null)
     const [info, setinfo] = useState(false)
+    const [loading, setloading] = useState(true)
     const {_id} = useParams()
 
     useEffect(()=>{
@@ -13,6 +15,9 @@ function Car({data}) {
             return(res.json())
         }).then(parsedData => {
             setcar(parsedData); 
+            setTimeout(() => {
+                setloading(false)
+            }, 500);
         })
     },[])
 
@@ -39,14 +44,19 @@ const total = (parseFloat(tax) + parseFloat(service) + parseFloat(rentalPrice)).
     <div className='overflow-x-hidden'>
         <div className='h-20 bg-black'></div>
 <div>
-    <img src={svg} alt="" />
+        <img src={svg} alt="" />
+
 </div>
     <a href='/search' className='bg-[#141414] absolute bottom-16 rotate-90 py-2 px-4 left-[-1%] text-[white]' >Back</a>
         <div className='flex w-[100%] justify-center items-center  '>
             <div className='flex justify-center w-[100%] '>
 
-            
-            <img className='w-[40%] rounded max-h-[600px] object-cover'  src={currentCar?.imageUrl} alt="" />
+            {!loading ?
+
+                <img className='w-[40%] rounded max-h-[600px] object-cover'  src={currentCar?.imageUrl} alt="" />
+                :
+                <Skeleton variant="rectangular" animation="wave" width={696} height={542}></Skeleton>
+            }
             <div className='w-[50%] flex items-center border ml-6 pl-6 '>
                 <div className='w-[50%] flex flex-col justify-around h-[100%]'>
                 <h1 className='text-[22px] capitalize' >
@@ -68,7 +78,7 @@ MPG: {currentCar?.mpg}
 <div className={`absolute bg-[gray] right-24 py-4 px-2 text-[white] bottom-64 ${info ? "opacity-100": "opacity-0"} transition-all`}>Insurance will be calculated at checkout.</div>
                 </div>
                 <div className='w-[50%] bg-[#141414] text-[white] flex flex-col justify-around h-[100%] px-6'>
-                    <h1>Rental Price: $ {rentalPrice}</h1>
+                        <h1>Rental Price: $ {rentalPrice}</h1>
                     <h1>Tax: ${tax}</h1>
                     <h1>Service Fees:{service} </h1>
                     <div className='flex justify-between'>

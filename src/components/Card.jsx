@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+import LazyLoad from "react-lazyload";
 import { Link } from "react-router-dom";
 
 function Card({ items }) {
@@ -18,7 +19,10 @@ function Card({ items }) {
     <div className="w-[calc(100%/3)] mx-2  max-h-[464px] sm:w-[85%] xl:w-[60%] 2xl:w-[40%] 3xl:w-[30%]  rounded my-4 flex flex-col items-center ">
       <div className="w-[90%] mt-10 object-contain">
         {items.imageUrl ? (
+          <LazyLoad height={326} offset={100}>
+
           <img className="h-[326px] object-cover	" src={items.imageUrl} alt="" />
+          </LazyLoad>
           ) : (
             <Skeleton width={550} height={300} variant="rectangular"></Skeleton>
             )}

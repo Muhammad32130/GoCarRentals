@@ -8,6 +8,7 @@ function Search() {
   const [year, setyear] = useState(2023)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
   const [showmore, setshow] = useState(9)
+  const [loading, setloading] = useState(true)
   const [type, settype] = useState(null)
   
   useEffect(() => {
@@ -20,15 +21,20 @@ function Search() {
         })
         .then(parsedData => {
             setData(parsedData); 
+            setTimeout(() => {
+              setloading(false)
+            }, 500);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 }, [type])
+useEffect(()=>{
+  setfilter(false)
+setloading(true)
+},[type])
 
 
-
-  console.log( showmore)
 
   
   const options = [
@@ -135,14 +141,21 @@ MPG Range:
 
     </div>
     <div className='flex justify-center pt-[100px] items-center flex-wrap mx-4 max'>
-{cars && cars.slice(0,showmore).map((items)=>{
-
-  return(
-    <Card year={year} items={items}></Card>
-    )
-
+    {!loading ? (
+  cars?.slice(0, showmore).map((items) => {
+    return <Card year={year} items={items}></Card>;
   })
-}
+) : (
+  
+  <>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+  </>
+)}
   </div>
  {cars?.length > showmore && 
  <div className='w-[100%] flex justify-center'>
