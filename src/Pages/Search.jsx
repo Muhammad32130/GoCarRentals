@@ -51,7 +51,6 @@ useEffect(()=>{
 
 
 
-console.log(filtercars)
 
 
 
@@ -79,7 +78,6 @@ console.log(filtercars)
       { value: "/electric", label: "Electric" }
     ];
    
-console.log(mpgRange)
     return (
       <div>
        
@@ -160,7 +158,7 @@ MPG Range:
     </div>
     <div className='flex justify-center pt-[100px] items-center flex-wrap mx-4 max'>
     {!loading ? (
-  (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars).slice(0, showmore).map((items) => {
+  (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars)?.slice(0, showmore).map((items) => {
     return <Card year={year} items={items}></Card>;
   })
 ) : (
