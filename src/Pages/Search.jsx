@@ -5,6 +5,7 @@ import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, Te
 function Search() {
   const [cars, setData] = useState(null)
   const [filter, setfilter] = useState(false)
+  const [filtercars, setfiltercars] = useState(null)
   const [year, setyear] = useState(2023)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
   const [showmore, setshow] = useState(9)
@@ -34,6 +35,24 @@ useEffect(()=>{
 setloading(true)
 },[type])
 
+useEffect(()=>{
+  const filteredCars = cars?.filter(car => {
+    const cityMPG = parseInt(car.citympg);
+    const highwayMPG = parseInt(car.highwaympg);
+    const minMPG = mpgRange[0];
+    const maxMPG = mpgRange[1];
+
+    return (cityMPG >= minMPG && cityMPG <= maxMPG) || (highwayMPG >= minMPG && highwayMPG <= maxMPG);
+  })
+  setfiltercars(filteredCars)
+
+
+},[mpgRange])
+
+
+
+console.log(filtercars)
+
 
 
   
@@ -60,7 +79,7 @@ setloading(true)
       { value: "/electric", label: "Electric" }
     ];
    
-
+console.log(mpgRange)
     return (
       <div>
        
@@ -128,34 +147,33 @@ MPG Range:
       step={1}
       valueLabelDisplay="auto"
       aria-labelledby="mpg-range-slider"
+      onChange={(event, newValue) => {
+        setMPGRange(newValue);
+      }}
       />
       </div>
       <hr className='w-[90%]' />
-<FormGroup > 
-    Transmission
-  <FormControlLabel control={<Switch defaultChecked />} label="Manual" />
-  <FormControlLabel  control={<Switch />} label="Automatic" />
-</FormGroup>
+
     </div>
     <div onClick={()=>{setfilter(false)}} className={`${!filter && "hidden"} transition-all w-[85%] bg-[rgba(60,60,60,0.3)] fixed right-0 h-[100vh] `}>
 
     </div>
     <div className='flex justify-center pt-[100px] items-center flex-wrap mx-4 max'>
     {!loading ? (
-  cars?.slice(0, showmore).map((items) => {
+  (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars).slice(0, showmore).map((items) => {
     return <Card year={year} items={items}></Card>;
   })
 ) : (
-  
   <>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-  <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+    <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
   </>
 )}
+
   </div>
  {cars?.length > showmore && 
  <div className='w-[100%] flex justify-center'>
