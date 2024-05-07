@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, TextField } from '@mui/material';
+import CarLocation from '../components/CarLocation';
 
 function Search() {
   const [cars, setData] = useState(null)
@@ -156,13 +157,16 @@ MPG Range:
     <div onClick={()=>{setfilter(false)}} className={`${!filter && "hidden"} transition-all w-[85%] bg-[rgba(60,60,60,0.3)] fixed right-0 h-[100vh] `}>
 
     </div>
-    <div className='flex justify-center pt-[100px] items-center flex-wrap mx-4 max'>
+    <div className='flex flex-col justify-center items-center'>
+
+    <CarLocation></CarLocation>
+    <div className='flex justify-center pt-[50px] items-center flex-wrap mx-4 max'>
     {!loading ? (
-  (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars)?.slice(0, showmore).map((items) => {
-    return <Card year={year} items={items}></Card>;
-  })
-) : (
-  <>
+      (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars)?.slice(0, showmore).map((items) => {
+        return <Card year={year} items={items}></Card>;
+      })
+    ) : (
+      <>
     <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
     <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
     <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
@@ -180,6 +184,7 @@ MPG Range:
   </div>
   }
  </div>
+  </div>
   )
 }
 

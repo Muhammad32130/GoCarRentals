@@ -7,6 +7,18 @@
 
 
 @layer components{
+  .location-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right-width: 1px;
+    border-right-color: rgb(238, 238, 238);
+    border-radius: 8px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 4px;
+    background-color: rgb(244, 244, 244);
+  }
 body{
   font-family: 'Oswald', sans-serif;
   overflow-x: hidden !important;
