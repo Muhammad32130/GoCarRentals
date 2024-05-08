@@ -26,7 +26,7 @@ function Car({data}) {
 const calculateRentalPrice = (currentCar) => {
     const basePrice = 50; 
     let priceMultiplier = 1.5; 
-    const mpg = currentCar?.mpg.slice(0, 2)
+    const mpg = currentCar?.mpg?.slice(0, 2)
     if(mpg < 15){
         priceMultiplier = 8
     }
