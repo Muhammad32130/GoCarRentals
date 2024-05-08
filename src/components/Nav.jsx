@@ -19,7 +19,8 @@ function Nav() {
           bg[0].classList.remove("onscrollbg");
         }
       };
-    } else {
+    } else { 
+      console.log("test")
       bg[0].classList += " onscrollbg";
     }
   }, []);
