@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, TextField } from '@mui/material';
 import CarLocation from '../components/CarLocation';
+import { Label } from '@mui/icons-material';
 
 function Search() {
   const [cars, setData] = useState(null)
   const [filter, setfilter] = useState(false)
   const [filtercars, setfiltercars] = useState(null)
-  const [year, setyear] = useState(2023)
   const [mpgRange, setMPGRange] = React.useState([0, 50]);
   const [showmore, setshow] = useState(9)
   const [loading, setloading] = useState(true)
   const [type, settype] = useState(null)
+  const [Brand, setbrand] = useState(null)
+  const [error, seterror] = useState(false)
   
 
 
   useEffect(() => {
-    fetch(`https://carapi-production-506e.up.railway.app/cars${type !== null ? `${type}` : ''}`)
+    fetch(`https://carapi-production-506e.up.railway.app/cars${type ? `${type}` : ``}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
@@ -24,18 +26,42 @@ function Search() {
             return response.json(); 
         })
         .then(parsedData => {
+          if(Brand){
+            setloading(true)
+            const res = []
+            parsedData.forEach(obj =>{
+              if(obj.brand === Brand){
+                res.push(obj)
+              }
+            }
+            
+          )
+          if(res.length < 1) {
+          seterror(true)  
+          }else{ seterror(false)} 
+            setData(res)
+            
+            
+          }else {
+            setloading(true)
             setData(parsedData); 
-            setTimeout(() => {
-              setloading(false)
-            }, 500);
+          }
+          
+          
+          setTimeout(() => {
+            setloading(false)
+          }, 500);
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+            seterror(error)
         });
-}, [type])
+}, [type, Brand, error])
 useEffect(()=>{
   setfilter(false)
-setloading(true)
+  setTimeout(() => {
+    
+    setloading(true)
+  }, 500);
 },[type])
 
 useEffect(()=>{
@@ -54,24 +80,39 @@ useEffect(()=>{
 
 
 
-
-
-
+console.log(error)
   
   const options = [
-      { value: "BMW", label: "BMW" },
-      { value: "chevrolet", label: "Chevrolet" },
-      { value: "ford", label: "Ford" },
-      { value: "tesla", label: "Tesla" },
-      { value: "jeep", label: "Jeep" },
-      { value: "cadillac", label: "Cadillac" },
-      { value: "gmc", label: "GMC" },
-      { value: "toyota", label: "Toyota" },
-      { value: "Honda", label: "Honda" },
-      { value: "Mercedes", label: "Mercedes" }
+    { value: null, label: "All Cars" },
+    { value: "Mazda", label: "Mazda" },
+    { value: "Porsche", label: "Porsche" },
+    { value: "BMW", label: "BMW" },
+    { value: "Toyota", label: "Toyota" },
+    { value: "Hyundai", label: "Hyundai" },
+    { value: "Honda", label: "Honda" },
+    { value: "Subaru", label: "Subaru" },
+    { value: "Mercedes-Benz", label: "Mercedes-Benz" },
+    { value: "Jaguar", label: "Jaguar" },
+    { value: "Ford", label: "Ford" },
+    { value: "Nissan", label: "Nissan" },
+    { value: "Jeep", label: "Jeep" },
+    { value: "Lexus", label: "Lexus" },
+    { value: "Audi", label: "Audi" },
+    { value: "McLaren", label: "McLaren" },
+    { value: "Chevrolet", label: "Chevrolet" },
+    { value: "Volkswagen", label: "Volkswagen" },
+    { value: "Chrysler", label: "Chrysler" },
+    { value: "Rolls-Royce", label: "Rolls-Royce" },
+    { value: "GMC", label: "GMC" },
+    { value: "Kia", label: "Kia" },
+    { value: "Ram", label: "Ram" },
+    { value: "Dodge", label: "Dodge" },
+    { value: "Mercedes-AMG", label: "Mercedes-AMG" },
+    { value: "Tesla", label: "Tesla" }
     ];
 
     const types =  [
+      { value: null, label: "All Types" },
       { value: "/truck", label: "Trucks" },
       { value: "/economy", label: "Economy" },
       { value: "/luxury", label: "Luxury" },
@@ -101,7 +142,8 @@ useEffect(()=>{
       </div>
         <div className='mx-6 sm:mt-20'>
           Make:
-        <Autocomplete
+      <Autocomplete
+      onChange={(event, newValue) => setbrand(newValue?.value)}
       disablePortal
       id="combo-box-demo"
       options={options}
@@ -121,23 +163,7 @@ useEffect(()=>{
       renderInput={(params) => <TextField {...params} label="Type of Car" />}
       />
       </div>
-    <div className='w-[80%] '> 
-    Year
-    <Slider
-  size="x-small"
-  defaultValue={2023}
-  min={2000}
-  max={2023}
-  onChange={(e)=>{
-    setyear(e.target.value)
-  }}
-  aria-label="year-slider"
-  valueLabelDisplay="auto"
-/>
-
-
-
-  </div>
+    
   <hr className='w-[90%]' />
 <div className='w-[80%]'>
 MPG Range:
@@ -163,9 +189,9 @@ MPG Range:
 
     <CarLocation></CarLocation>
     <div className='flex justify-center pt-[50px] items-center flex-wrap mx-4 max'>
-    {!loading ? (
+   {!error ? !loading ? (
       (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars)?.slice(0, showmore).map((items) => {
-        return <Card year={year} items={items}></Card>;
+        return <Card  items={items}></Card>;
       })
     ) : (
       <>
@@ -176,7 +202,14 @@ MPG Range:
     <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
     <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
   </>
-)}
+)
+:
+<h1 className='text-[32px]'>Sorry no cars found in our Database, Maybe try <span onClick={()=> {setfilter(true)}} className='slide hover:cursor-pointer'>
+  switching the filters?
+  </span>
+</h1>
+
+}
 
   </div>
  {cars?.length > showmore && 

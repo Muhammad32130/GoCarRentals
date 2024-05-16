@@ -7,6 +7,27 @@
 
 
 @layer components{
+  .slide{
+    color: blue;
+text-decoration: none;
+background-image: linear-gradient(blue, #0a1d8b);
+background-size: 0% 0.1em;
+background-position-y: 100%;
+background-position-x: 0%;
+background-repeat: no-repeat;
+transition: background-size 0.2s ease-in-out;
+  }
+
+  .slide:hover,
+  .slide:focus,
+  .slide:active {
+  background-size: 100% 0.1em;
+  }
+
+
+
+
+
   .location-container {
     display: flex;
     align-items: center;
