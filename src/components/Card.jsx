@@ -16,18 +16,16 @@ function Card({ items }) {
   const rentalPrice = calculateRentalPrice(items);
 
   return (
-    <div className="w-[calc(100%/3)] mx-2  max-h-[464px] sm:w-[85%] xl:w-[60%] 2xl:w-[40%] 3xl:w-[30%]  rounded my-4 flex flex-col items-center ">
-      <div className="w-[90%] mt-10 object-contain">
+    <Link to={`/car/${items._id}`} className="mx-4 flex-auto max-w-[450px] max-h-[350px] border rounded my-4 flex flex-col items-start hover:cursor-pointer ">
         {items.imageUrl ? (
-          <LazyLoad height={326} offset={100}>
+          <LazyLoad  offset={100}>
 
-          <img className="h-[326px] object-cover	" src={items.imageUrl} alt="" />
+          <img className="aspect-video" src={items.imageUrl} alt="" />
           </LazyLoad>
           ) : (
             <Skeleton width={550} height={300} variant="rectangular"></Skeleton>
             )}
-      </div>
-      <div className="w-[90%] flex justify-between">
+      <div className="w-[100%] px-4 bg-white flex justify-between">
         <div>
           <h1 className="mt-4">{items.name}</h1>
           <h1 className="mt-4">Fuel Type: {items.fuel_type?.toUpperCase()}</h1>
@@ -46,7 +44,7 @@ function Card({ items }) {
    
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
