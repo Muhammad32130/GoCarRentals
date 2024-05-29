@@ -4,6 +4,7 @@ import { Autocomplete, FormControlLabel, FormGroup, Skeleton, Slider, Switch, Te
 import CarLocation from '../components/CarLocation';
 import { Label } from '@mui/icons-material';
 import { data } from 'autoprefixer';
+import Filters from '../components/Filters';
 
 function Search() {
   const [cars, setData] = useState(null)
@@ -30,7 +31,6 @@ function Search() {
         if (Brand) {
           setloading(true)
           const res = []
-          console.log(res)
           parsedData.forEach(obj => {
             if (obj.brand === Brand) {
               res.push(obj)
@@ -92,53 +92,14 @@ function Search() {
   }
 
 
-  console.log(error, Brand, type, cars)
 
-  const options = [
-    { value: null, label: "All Cars" },
-    { value: "Mazda", label: "Mazda" },
-    { value: "Porsche", label: "Porsche" },
-    { value: "BMW", label: "BMW" },
-    { value: "Toyota", label: "Toyota" },
-    { value: "Hyundai", label: "Hyundai" },
-    { value: "Honda", label: "Honda" },
-    { value: "Subaru", label: "Subaru" },
-    { value: "Mercedes-Benz", label: "Mercedes-Benz" },
-    { value: "Jaguar", label: "Jaguar" },
-    { value: "Ford", label: "Ford" },
-    { value: "Nissan", label: "Nissan" },
-    { value: "Jeep", label: "Jeep" },
-    { value: "Lexus", label: "Lexus" },
-    { value: "Audi", label: "Audi" },
-    { value: "McLaren", label: "McLaren" },
-    { value: "Chevrolet", label: "Chevrolet" },
-    { value: "Volkswagen", label: "Volkswagen" },
-    { value: "Chrysler", label: "Chrysler" },
-    { value: "Rolls-Royce", label: "Rolls-Royce" },
-    { value: "GMC", label: "GMC" },
-    { value: "Kia", label: "Kia" },
-    { value: "Ram", label: "Ram" },
-    { value: "Dodge", label: "Dodge" },
-    { value: "Mercedes-AMG", label: "Mercedes-AMG" },
-    { value: "Tesla", label: "Tesla" }
-  ];
 
-  const types = [
-    { value: null, label: "All Types" },
-    { value: "/truck", label: "Trucks" },
-    { value: "/economy", label: "Economy" },
-    { value: "/luxury", label: "Luxury" },
-    { value: "/sports", label: "Sports" },
-    { value: "/minivan", label: "Minivan" },
-    { value: "/van", label: "Vans" },
-    { value: "/electric", label: "Electric" }
-  ];
 
   return (
     <div>
 
 
-      <div onClick={() => { setfilter(true) }} className='text-black absolute top-20 left-10 cursor-pointer '>
+      {/* <div onClick={() => { setfilter(true) }} className='text-black cursor-pointer '>
         <div className='flex items-center justify-center'>
           <svg className='text-blue-500 mr-2' xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512"><path fill="#0059ff" d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" /></svg>
           <h2 className='text-[24px] text-[#0059ff]'>
@@ -147,76 +108,34 @@ function Search() {
           </h2>
 
         </div>
-      </div>
-      <div className={`flex ${filter ? 'translate-x' : "translate-x-[-100%]"} transition-all sm:bg-[#e9e6e6] w-[15%] border flex-col fixed h-[100%]  justify-evenly items-center z-10`}>
-        <div onClick={() => { setfilter(false) }} className='absolute top-20 right-10 hover:cursor-pointer'>
-          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" /></svg>
-        </div>
-        <div className='mx-6 sm:mt-20'>
-          Make:
-          <Autocomplete
-            onChange={(event, newValue) => setbrand(newValue?.value)}
-            disablePortal
-            id="combo-box-demo"
-            options={options}
-            sx={{ width: 180 }}
-            renderInput={(params) => <TextField {...params} label="Select a Make" />}
-          />
-        </div>
-        <div>
+      </div> */}
+      {/* <div onClick={() => { setfilter(false) }} className={`${!filter && "hidden"} transition-all w-[85%] bg-[rgba(60,60,60,0.3)] fixed right-0 h-[100vh] z-10 `}> */}
+      {/* </div> */}
 
-          Type:
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={types}
-            onChange={(event, newValue) => settype(newValue?.value)}
-            sx={{ width: 180 }}
-            renderInput={(params) => <TextField {...params} label="Type of Car" />}
-          />
-        </div>
-
-        <hr className='w-[90%]' />
-        <div className='w-[80%]'>
-          MPG Range:
-          <Slider
-            value={mpgRange}
-            min={0}
-            max={50}
-            step={1}
-            valueLabelDisplay="auto"
-            aria-labelledby="mpg-range-slider"
-            onChange={(event, newValue) => {
-              setMPGRange(newValue);
-            }}
-          />
-        </div>
-        <hr className='w-[90%]' />
-
-      </div>
-      <div onClick={() => { setfilter(false) }} className={`${!filter && "hidden"} transition-all w-[85%] bg-[rgba(60,60,60,0.3)] fixed right-0 h-[100vh] z-10 `}>
-
-      </div>
       <div className='flex flex-col justify-center items-center'>
 
         <CarLocation></CarLocation>
+<Filters filter={filter} setfilter={setfilter} settype={settype} setbrand={setbrand} mpgRange={mpgRange} setMPGRange={setMPGRange} />
         <div className='flex justify-center w-[90%] mt-[3rem] flex-wrap items-center'>
           {!error ? !loading ? (
             (mpgRange[0] === 0 && mpgRange[1] === 50 ? cars : filtercars)?.slice(0, showmore).map((items) => {
+              if(!items){
+                seterror(true)
+              }
               return <Card items={items}></Card>;
             })
           ) : (
             <>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
-              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={526} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
+              <Skeleton className='mx-2 my-4' variant="rectangular" animation="wave" width={426} height={462}></Skeleton>
             </>
           )
             :
-            <h1 className='text-[32px]'>Sorry no cars found in our Database, Maybe try <span onClick={() => { setfilter(true) }} className='slide hover:cursor-pointer'>
+            <h1 className='text-[32px]'>Sorry no cars found in our Inventory, Maybe try <span onClick={() => { setfilter(true) }} className='slide hover:cursor-pointer'>
               switching the filters?
             </span>
             </h1>
@@ -224,7 +143,7 @@ function Search() {
           }
 
         </div>
-        {cars?.length > showmore &&
+        {cars?.length !==0 && cars?.length > showmore &&
           <div className='w-[100%] flex justify-center'>
 
           <button onClick={() => viewMore()} className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>Show More</button>

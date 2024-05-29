@@ -21,12 +21,12 @@ function Car({ data }) {
             })
     }, [])
 
-
+console.log(currentCar)
 
     const calculateRentalPrice = (currentCar) => {
         const basePrice = 50;
         let priceMultiplier = 1.5;
-        const mpg = currentCar?.mpg?.slice(0, 2)
+        const mpg = currentCar?.citympg
         if (mpg < 15) {
             priceMultiplier = 8
         }
@@ -34,8 +34,8 @@ function Car({ data }) {
 
         return rentalPrice.toFixed(2);
     };
-    const rentalPrice = calculateRentalPrice(currentCar)
-    console.log(rentalPrice)
+    const CarPrice = currentCar?.price?.replace(/[$,]/g, "")
+    const rentalPrice = parseInt(CarPrice / 365) + .99
     const tax = (10 / 100 * rentalPrice).toFixed(2)
     const service = (8 / 100 * rentalPrice).toFixed(2)
     const total = (parseFloat(tax) + parseFloat(service) + parseFloat(rentalPrice)).toFixed(2)
@@ -67,13 +67,11 @@ function Car({ data }) {
 
                             </h1>
                             <h1 className='text-[20px] '>
-                                MPG: {currentCar?.mpg}
+                                MPG: {currentCar?.citympg} MPG City / {currentCar?.highwaympg} MPG Hwy
                             </h1>
-                            <h1 className='text-[20px] '>
-                                Transmission Type: {currentCar?.transmission == 'a' ? "Automatic" : "Manual"}
-                            </h1>
+                           
                             <h1 className='text-[20px]  capitalize'>
-                                Gas Type: {currentCar?.fuel_type}
+                                Fuel Type: {currentCar?.type === "electric" ? "electric" : "Gas"}
                             </h1>
                             <div className={`absolute bg-[gray] right-24 py-4 px-2 text-[white] bottom-64 ${info ? "opacity-100" : "opacity-0"} transition-all`}>Insurance will be calculated at checkout.</div>
                         </div>
@@ -87,7 +85,7 @@ function Car({ data }) {
                             </div>
                             <div className='flex justify-between'>
                                 <h1>
-                                    Total: {total}
+                                    Total: {total} Per Day
                                 </h1>
                                 <button onClick={() => { alert("This feature has not implemented yet!") }} className='bg-[red] px-3 py-1 rounded-sm hover:underline ease-in-out transition-all'>Book Now!</button>
                             </div>
