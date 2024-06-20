@@ -91,8 +91,7 @@ function Search() {
     setshow(showmore + 3);
   }
 
-
-
+console.log(cars?.length, showmore)
 
 
   return (
@@ -143,12 +142,13 @@ function Search() {
           }
 
         </div>
-        {cars?.length !==0 && cars?.length > showmore &&
-          <div className='w-[100%] flex justify-center'>
-
-          <button onClick={() => viewMore()} className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>Show More</button>
-          </div>
-        }
+        {(showmore < cars?.length || showmore < filtercars?.length ) &&
+  <div className='w-[100%] flex justify-center'>
+    <button onClick={() => viewMore()} className='w-[8%] py-4 bg-[#ff2727d7] my-6 rounded-md text-white'>
+      Show More
+    </button>
+  </div>
+}
       </div>
     </div>
   )
